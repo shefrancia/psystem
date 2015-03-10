@@ -13,29 +13,33 @@ public class Rules {
 		this.rules = new ArrayList<Rule>();
 	}
 	
-	public void parse(Alphabet alpha, String input, int type){
+	public void parse(Alphabet alpha, int membrane, String input,int type){
 		String[] temp;
 		if(type == Flags.EVOL){
 			temp = input.split("[,]");
-			System.out.println(Arrays.toString(temp));
+//			System.out.println(Arrays.toString(temp));
 			for(int i = 0; i < temp.length; i++){
-				Evolution e = new Evolution(this.counter,temp[i]);
+				Evolution e = new Evolution(this.counter,temp[i],membrane);
 				rules.add(e);
-				alpha.addRule(e.left, e.label);
+				alpha.addERule(membrane, e.left, e.label);
 				this.counter++;
 			}
 		}else{
 			temp = input.split("[)].*[(]");
 			for(String s: temp){
-				Communication c = new Communication(this.counter,s.replaceAll("[(]|[)]", ""));
+				Communication c = new Communication(this.counter,s.replaceAll("[(]|[)]", ""), membrane);
 				rules.add(c);
 				for(String e : c.elements){
-					alpha.addRule(e, c.label);
+					alpha.addCRule(e, c.label);
 				}
 				this.counter++;
 			}
 			
 		}
+	}
+	
+	public Evolution getEvolRule(int index){
+		return (Evolution) rules.get(index);
 	}
 	
 	public void print(){

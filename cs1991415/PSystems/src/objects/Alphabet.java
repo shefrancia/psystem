@@ -25,8 +25,12 @@ public class Alphabet {
 		}
 	}
 	
-	public void addRule(String entry, int label){
-		elements.get(table.get(entry)).addRule(label);
+	public void addERule(int membrane, String entry, int label){
+		elements.get(table.get(entry)).addERule(membrane, label);
+	}
+	
+	public void addCRule(String entry, int label){
+		elements.get(table.get(entry)).addCRule(label);
 	}
 	
 	public void print(){
@@ -35,4 +39,15 @@ public class Alphabet {
 		}
 	}
 	
+	public int getIndex(String entry){
+		return table.get(entry);
+	}
+	
+	public Element getElement(int index){
+		return elements.get(index);
+	}
+	
+	public Element getElement(String value){
+		return elements.get(table.get(value));
+	}
 }

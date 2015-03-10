@@ -1,20 +1,38 @@
 package objects;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Random;
 
 public class Element {
 	public int label;
 	private String value;
-	private ArrayList<Integer> rules;
+	private ArrayList<Integer> evolRules;
+	private ArrayList<Integer> commRules;
+	private Hashtable<Integer, ArrayList<Integer>> evol;
 	
 	public Element(int label, String value){
 		this.label = label;
 		this.value = value;
-		this.rules = new ArrayList<Integer>();
+		this.evolRules = new ArrayList<Integer>();
+		this.commRules = new ArrayList<Integer>();
+		this.evol = new Hashtable<Integer, ArrayList<Integer>>();
 	}
 	
-	public void addRule(int rule){
-		this.rules.add(rule);
+	public void addERule(int membrane, int rule){
+		this.evolRules.add(rule);
+		
+		if(this.evol.containsKey(membrane)){
+			this.evol.get(membrane).add(rule);
+		}else{
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+			temp.add(rule);
+			this.evol.put(membrane, temp);
+		}
+	}
+	
+	public void addCRule(int rule){
+		this.commRules.add(rule);
 	}
 	
 	public String getValue(){
@@ -22,14 +40,30 @@ public class Element {
 	}
 	
 	public ArrayList<Integer> getRules(){
-		return this.rules;
+		return this.evolRules;
 	}
 	
 	public void print(){
 		System.out.println(this.label + " " + this.value);
-		for(int i : this.rules){
+		System.out.println("Evolution");
+		for(int i : this.evolRules){
 			System.out.println(i);
 		}
+		System.out.println("Communication");
+		for(int i : this.commRules){
+			System.out.println(i);
+		}
+	}
+	
+	public int chooseEvolRuleND(int membrane){
+		if(this.evolRules.isEmpty())
+			return -1;
+		Random random = new Random();
+//		int index = random.nextInt(this.evolRules.size());
+//		int rule = this.evolRules.get(index);
+		int index = random.nextInt(this.evol.get(membrane).size());
+		int rule = this.evol.get(membrane).get(index);
+		return rule;
 	}
 	
 }

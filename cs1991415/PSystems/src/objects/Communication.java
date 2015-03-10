@@ -8,13 +8,17 @@ import constants.Flags;
 public class Communication extends Rule{
 	int label;
 	int type;
+	int membrane;
+	int sender; //this will depend on membrane structure
+	int receiver; //this will depend on membrane structure
 	ArrayList<String> elements;
 	ArrayList<String> energy;
 	
-	public Communication(int label, String rule){
+	public Communication(int label, String rule, int membrane){
 		this.elements = new ArrayList<String>();
 		this.energy = new ArrayList<String>();
 		this.label = label;
+		this.membrane = membrane;
 		
 		String[] parts = rule.split("( *);( *)");
 		for(String s : parts){
