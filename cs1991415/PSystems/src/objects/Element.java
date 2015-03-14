@@ -10,6 +10,7 @@ public class Element {
 	private ArrayList<Integer> evolRules;
 	private ArrayList<Integer> commRules;
 	private Hashtable<Integer, ArrayList<Integer>> evol;
+	private Hashtable<Integer, ArrayList<Integer>> comm;
 	
 	public Element(int label, String value){
 		this.label = label;
@@ -17,6 +18,7 @@ public class Element {
 		this.evolRules = new ArrayList<Integer>();
 		this.commRules = new ArrayList<Integer>();
 		this.evol = new Hashtable<Integer, ArrayList<Integer>>();
+		this.comm = new Hashtable<Integer, ArrayList<Integer>>();
 	}
 	
 	public void addERule(int membrane, int rule){
@@ -31,8 +33,16 @@ public class Element {
 		}
 	}
 	
-	public void addCRule(int rule){
+	public void addCRule(int membrane, int rule){
 		this.commRules.add(rule);
+		
+		if(this.comm.containsKey(membrane)){
+			this.comm.get(membrane).add(rule);
+		}else{
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+			temp.add(rule);
+			this.comm.put(membrane, temp);
+		}
 	}
 	
 	public String getValue(){

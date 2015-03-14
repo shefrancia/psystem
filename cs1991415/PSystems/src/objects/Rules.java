@@ -29,8 +29,12 @@ public class Rules {
 			for(String s: temp){
 				Communication c = new Communication(this.counter,s.replaceAll("[(]|[)]", ""), membrane);
 				rules.add(c);
+				boolean b = false;
 				for(String e : c.elements){
-					alpha.addCRule(e, c.label);
+					alpha.addCRule(c.membrane,e, c.label);
+					if(b)
+						alpha.addCRule(c.destination,e, c.label);
+					b = true;
 				}
 				this.counter++;
 			}

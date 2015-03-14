@@ -29,8 +29,8 @@ public class Alphabet {
 		elements.get(table.get(entry)).addERule(membrane, label);
 	}
 	
-	public void addCRule(String entry, int label){
-		elements.get(table.get(entry)).addCRule(label);
+	public void addCRule(int membrane, String entry, int label){
+		elements.get(table.get(entry)).addCRule(membrane, label);
 	}
 	
 	public void print(){

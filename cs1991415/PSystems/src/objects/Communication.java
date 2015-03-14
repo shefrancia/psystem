@@ -9,8 +9,8 @@ public class Communication extends Rule{
 	int label;
 	int type;
 	int membrane;
-	int sender; //this will depend on membrane structure
-	int receiver; //this will depend on membrane structure
+	int source; //this will depend on membrane structure
+	int destination; //this will depend on membrane structure
 	ArrayList<String> elements;
 	ArrayList<String> energy;
 	
@@ -18,7 +18,6 @@ public class Communication extends Rule{
 		this.elements = new ArrayList<String>();
 		this.energy = new ArrayList<String>();
 		this.label = label;
-		this.membrane = membrane;
 		
 		String[] parts = rule.split("( *);( *)");
 		for(String s : parts){
@@ -26,23 +25,34 @@ public class Communication extends Rule{
 			
 			if(temp[1].equals("in")){
 				this.type = Flags.IN;
+				this.source = membrane - 1;
+				this.destination = membrane;
+				this.membrane = membrane == 0 ? membrane : membrane - 1;
+				
 			}else{
 				this.type = Flags.OUT;
+				this.source = membrane;
+				this.destination = membrane - 1;
+				this.membrane = this.source;
 			}
 			
-			for(String e: temp[0].split(" ")){
+			for(String t: temp[0].split(" ")){
 				if(s.matches("^e(\\^.)")){
-					this.energy.add(e.split("\\^")[1]);
-				}else if(e.equals("e")){
+					this.energy.add(t.split("\\^")[1]);
+				}else if(t.equals("e")){
 					this.energy.add("1");
 				}
 				else
-					this.elements.add(e);
+					this.elements.add(t);
 			}
 		}
 		
-		if(parts.length > 1)
+		if(parts.length > 1){
 			this.type = Flags.INOUT;
+			this.source = membrane - 1;
+			this.destination = membrane;
+			this.membrane = source;
+		}
 	}
 	
 	public void print(){

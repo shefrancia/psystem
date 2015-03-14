@@ -48,4 +48,8 @@ public class MembraneStructure {
 		this.membranes.get(index).print();
 	}
 	
+	public void print(){
+		
+	}
+	
 }

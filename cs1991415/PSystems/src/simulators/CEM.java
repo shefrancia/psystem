@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import objects.*;
 
-public class EPC {
+public class CEM {
 	Alphabet alpha;
 	Rules rules;
 	
-	public EPC(Alphabet alpha, Rules rules){
+	public CEM(Alphabet alpha, Rules rules){
 		this.alpha = alpha;
 		this.rules = rules;
 	}
@@ -24,8 +24,6 @@ public class EPC {
 	public void execute(MembraneStructure ms){
 		ArrayList<Membrane> membranes = ms.membranes;
 		int ruleApplied = 0;
-		boolean isCApplicable = true;
-		ArrayList<Integer> commRules = new ArrayList<Integer>();
 		for (Membrane m : membranes) {
 			m.print();
 			ArrayList<String> temp = (ArrayList<String>) m.elements.clone();
@@ -39,9 +37,7 @@ public class EPC {
 						m.addElements(rule.getRight());
 						m.addEnergy(rule.getEnergy());
 						ruleApplied++;
-						isCApplicable = false;
-						commRules.clear();
-					}else if(isCApplicable){
+					}else{
 						
 					}
 				}
