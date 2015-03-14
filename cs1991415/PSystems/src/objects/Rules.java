@@ -46,6 +46,10 @@ public class Rules {
 		return (Evolution) rules.get(index);
 	}
 	
+	public Communication getCommunicationRule(int index){
+		return (Communication) rules.get(index);
+	}
+	
 	public void print(){
 		for(Rule r : rules){
 			r.print();

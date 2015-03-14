@@ -27,7 +27,10 @@ public class Membrane {
 		System.out.println();
 	}
 	
-
+	public void addElement(String element){
+		this.elements.add(element);
+	}
+	
 	public void addElements(ArrayList<String> elements){
 		this.elements.addAll(elements);
 	}

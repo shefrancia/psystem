@@ -31,9 +31,11 @@ public class Main {
 			}
 			for(int i = 0; i < memCount; i++){
 				input = reader.readLine();
-				rules.parse(alpha,i,input,Flags.EVOL);
+				if(!input.isEmpty())
+					rules.parse(alpha,i,input,Flags.EVOL);
 				input = reader.readLine();
-				rules.parse(alpha,i,input,Flags.COMM);
+				if(!input.isEmpty())
+					rules.parse(alpha,i,input,Flags.COMM);
 			}
 			
 			reader.close();

@@ -7,11 +7,11 @@ import constants.Flags;
 
 public class Communication extends Rule{
 	int label;
-	int type;
+	public int type;
 	int membrane;
 	int source; //this will depend on membrane structure
 	int destination; //this will depend on membrane structure
-	ArrayList<String> elements;
+	public ArrayList<String> elements;
 	ArrayList<String> energy;
 	
 	public Communication(int label, String rule, int membrane){
@@ -27,7 +27,7 @@ public class Communication extends Rule{
 				this.type = Flags.IN;
 				this.source = membrane - 1;
 				this.destination = membrane;
-				this.membrane = membrane == 0 ? membrane : membrane - 1;
+				this.membrane = membrane - 1;
 				
 			}else{
 				this.type = Flags.OUT;
@@ -57,5 +57,13 @@ public class Communication extends Rule{
 	
 	public void print(){
 		System.out.println(label + " : " + type + " : " + Arrays.toString(this.elements.toArray()) + " : " + Arrays.toString(this.energy.toArray()));
+	}
+	
+	public void applyRule(ArrayList<Membrane> membranes){
+		if(this.type == Flags.INOUT){
+			membranes.get(this.source).addElement(this.elements.get(1));
+			membranes.get(this.destination).addElement(this.elements.get(0));
+		}else
+			membranes.get(this.destination).addElements(this.elements);
 	}
 }
